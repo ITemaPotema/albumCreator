@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ru" x-data="albumApp()">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title x-text="albumTitle || 'Фотоальбом'"></title>
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+    <link rel="stylesheet" href="/static/css/show_album.css">
+</head>
+<body>
+    <div class="album-header" x-show="albumTitle">
+        <h1 class="album-title" x-text="albumTitle"></h1>
+    </div>
+
+    <div class="progress-container" x-show="totalSlides > 0">
+        <div class="progress-bar" :style="'width: ' + (currentPage / totalSlides * 100) + '%'"></div>
+    </div>
+
+    <div class="album-container">
+        <div
+            class="page"
+            x-show="currentSlide"
+            x-transition
+            :class="{ 'flip-out': isAnimating, 'flip-in': !isAnimating }"
+        >
+            <template x-if="currentSlide">
+                <div class="page-content">
+                    <h2 class="page-title" x-text="currentSlide.title"></h2>
+
+                    <div class="page-image-container" @click="openImageModal(currentSlide.image_path)" x-show="currentSlide.image_path">
+                        <img :src="currentSlide.image_path" :alt="currentSlide.title" class="page-image">
+                    </div>
+                    <template x-if="!currentSlide.image_path">
+                        <div class="no-image-placeholder">Изображение отсутствует</div>
+                    </template>
+
+                    <div class="page-footer">
+                        <button
+                            class="btn-read"
+                            @click="openModal = true; currentText = currentSlide.text"
+                            x-show="currentSlide.text"
+                        >
+                            Показать текст
+                        </button>
+                        <div class="page-indicator" x-text="'Страница ' + currentPage + ' из ' + totalSlides"></div>
+                    </div>
+                </div>
+            </template>
+        </div>
+    </div>
+
+    <div class="navigation">
+        <button
+            class="nav-btn"
+            @click="prevSlide()"
+            :disabled="currentPage === 1"
+        >
+            ← Назад
+        </button>
+        <button
+            class="nav-btn"
+            @click="nextSlide()"
+            :disabled="currentPage === totalSlides"
+        >
+            Вперед →
+        </button>
+    </div>
+
+    <!-- Text Modal -->
+    <div class="modal-overlay" x-show="openModal" @click.away="openModal = false" x-transition data-show="openModal">
+        <div class="modal-content" @click.stop>
+            <button class="modal-close" @click="openModal = false">&times;</button>
+            <h3 class="page-title" x-text="currentSlide?.title"></h3>
+            <div class="modal-text" x-text="currentText"></div>
+        </div>
+    </div>
+
+    <!-- Image Zoom Modal -->
+    <div class="modal-overlay" x-show="zoomModalOpen" @click.away="zoomModalOpen = false" x-transition data-show="zoomModalOpen">
+        <div class="image-modal" @click.stop>
+            <button class="image-modal-close" @click="zoomModalOpen = false">&times;</button>
+            <img :src="zoomedImageUrl" class="zoomed-image">
+        </div>
+    </div>
+
+    <script src="/static/js/show_album.js"></script>
+
+</body>
+</html>

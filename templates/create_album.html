@@ -1,0 +1,145 @@
+
+<!DOCTYPE html>
+<html lang="ru" x-data="albumApp()">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Создание альбома</title>
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="/static/css/create_album.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Создание нового альбома</h1>
+            <div>
+                <button class="btn btn-secondary" @click="toggleReordering" x-text="isReordering ? 'Завершить сортировку' : 'Изменить порядок'"></button>
+                <button class="btn" @click="saveAlbum" :disabled="isSaving">
+                    <span x-show="!isSaving">Сохранить альбом</span>
+                    <span x-show="isSaving"><i class="fas fa-spinner fa-spin"></i> Сохранение...</span>
+                </button>
+            </div>
+        </header>
+
+        <div class="album-form">
+            <h2>Информация об альбоме</h2>
+            <div class="form-group">
+                <label for="albumTitle">Название альбома</label>
+                <input type="text" id="albumTitle" class="form-control" :class="{ 'is-invalid': albumTitleError }" placeholder="Введите название альбома" x-model="albumTitle">
+                <div class="error-message" x-show="albumTitleError" x-text="albumTitleError"></div>
+            </div>
+
+            <div class="form-group">
+                <label for="albumDescription">Описание альбома</label>
+                <textarea id="albumDescription" class="form-control" placeholder="Введите описание" x-model="albumDescription"></textarea>
+                <div class="error-message" x-show="albumDescriptionError" x-text="albumDescriptionError"></div>
+            </div>
+        </div>
+
+        <div class="album-form">
+            <h2>Добавить новый слайд</h2>
+            <div class="form-group">
+                <label for="slideTitle">Заголовок слайда</label>
+                <input type="text" id="slideTitle" class="form-control" :class="{ 'is-invalid': slideTitleError }" placeholder="Введите заголовок" x-model="newSlide.title">
+                <div class="error-message" x-show="slideTitleError" x-text="slideTitleError"></div>
+            </div>
+
+            <div class="form-group">
+                <label for="slideText">Текст слайда</label>
+                <textarea id="slideText" class="form-control" :class="{ 'is-invalid': slideTextError }" placeholder="Введите текст" x-model="newSlide.text"></textarea>
+                <div class="error-message" x-show="slideTextError" x-text="slideTextError"></div>
+            </div>
+
+            <div class="form-group">
+                <label>Изображение</label>
+                <div class="file-input-wrapper">
+                    <button type="button" class="file-input-button">
+                        <i class="fas fa-upload"></i> Выберите изображение
+                    </button>
+                    <input type="file" id="slideImage" class="form-control" :class="{ 'is-invalid': slideImageError }" @change="handleImageUpload" accept="image/*">
+                    <span class="file-name" x-text="newSlide.image ? newSlide.image.name : 'Файл не выбран'"></span>
+                </div>
+                <div class="error-message" x-show="slideImageError" x-text="slideImageError"></div>
+                <div x-show="newSlide.imagePreview" style="margin-top: 10px;">
+                    <img :src="newSlide.imagePreview" alt="Предпросмотр" style="max-width: 100%; max-height: 200px; border-radius: 5px;">
+                </div>
+            </div>
+
+            <div class="controls">
+                <button class="btn" @click="addSlide" :disabled="slides.length >= 20">
+                    <span x-show="editingIndex === null">Добавить слайд</span>
+                    <span x-show="editingIndex !== null">Сохранить изменения</span>
+                </button>
+                <button class="btn btn-outline" @click="clearForm">Очистить форму</button>
+            </div>
+
+            <div class="max-slides-warning" x-show="slides.length >= 20">
+                Достигнуто максимальное количество слайдов (20)
+            </div>
+        </div>
+
+        <div x-show="slides.length > 0">
+            <h2>Слайды альбома <span x-text="'(' + slides.length + '/20)'"></span></h2>
+            <div class="slides-container" @mouseleave="hoveredSlide = null">
+                <template x-for="(slide, index) in slides" :key="index">
+                    <div
+                        class="slide"
+                        @mouseenter="hoveredSlide = index"
+                        :class="{ 'reordering': isReordering }"
+                        x-data="{ isHovered: false }"
+                        x-init="
+                            $watch('hoveredSlide', value => {
+                                isHovered = value === index;
+                            })
+                        "
+                    >
+                        <div
+                            class="slide-number"
+                            x-show="isReordering || isHovered"
+                            @click="isReordering ? updateSlideNumber(index) : null"
+                            x-text="isReordering ? slide.order : index + 1"
+                        ></div>
+
+                        <img
+                            x-show="slide.imagePreview"
+                            :src="slide.imagePreview"
+                            class="slide-image"
+                            :alt="'Слайд ' + (index + 1)"
+                        >
+                        <div x-show="!slide.imagePreview" class="slide-image" style="display: flex; align-items: center; justify-content: center;">
+                            <i class="fas fa-image" style="font-size: 50px; color: var(--secondary);"></i>
+                        </div>
+
+                        <div class="slide-content">
+                            <h3 class="slide-title" x-text="slide.title || 'Без названия'"></h3>
+                            <div class="slide-text-container">
+                                <p class="slide-text" x-text="slide.text || 'Нет описания'"></p>
+                            </div>
+                        </div>
+
+                        <div class="slide-actions">
+                            <button class="btn btn-secondary" style="padding: 5px 10px; font-size: 14px;" @click="editSlide(index)">
+                                <i class="fas fa-edit"></i> Изменить
+                            </button>
+                            <button class="btn btn-danger" style="padding: 5px 10px; font-size: 14px;" @click="removeSlide(index)">
+                                <i class="fas fa-trash"></i> Удалить
+                            </button>
+                        </div>
+                    </div>
+                </template>
+            </div>
+        </div>
+
+        <div class="empty-state" x-show="slides.length === 0">
+            <i class="fas fa-images"></i>
+            <h3>Ваш альбом пуст</h3>
+            <p>Добавьте первый слайд, используя форму выше</p>
+        </div>
+    </div>
+
+    <script src="/static/js/create_album.js"></script>
+
+</body>
+</html>

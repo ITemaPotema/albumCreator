@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ru" x-data="auth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Вход | Альбомы на день рождения</title>
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/auth.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Добро пожаловать!</h1>
+        </div>
+
+        <div class="form-container">
+            <form x-show="isLogin" @submit.prevent="login" id="loginForm">
+                <div class="form-group">
+                    <label for="loginEmail">Email</label>
+                    <input type="email" id="loginEmail" class="form-control" placeholder="Введите ваш email" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="loginPassword">Пароль</label>
+                    <input type="password" id="loginPassword" class="form-control" placeholder="Введите ваш пароль" required>
+                </div>
+
+                <button type="submit" class="btn">Войти</button>
+
+                <div class="switch-form">
+                    Нет аккаунта? <a @click="isLogin = false">Зарегистрироваться</a>
+                </div>
+            </form>
+
+            <form x-show="!isLogin" @submit.prevent="register" id="registerForm" style="display: none;">
+                <div class="form-group">
+                    <label for="regName">Имя</label>
+                    <input type="text" id="regName" class="form-control" placeholder="Введите имя" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="regSurname">Фамилия</label>
+                    <input type="text" id="regSurname" class="form-control" placeholder="Введите фамилию" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="regEmail">Email</label>
+                    <input type="email" id="regEmail" class="form-control" placeholder="Введите ваш email" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="regPassword">Пароль</label>
+                    <input type="password" id="regPassword" class="form-control"  placeholder="Придумайте пароль" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="regConfirmPassword">Подтвердите пароль</label>
+                    <input type="password" id="regConfirmPassword" class="form-control" placeholder="Повторите пароль" required>
+                </div>
+
+                <button type="submit" class="btn">Зарегистрироваться</button>
+
+                <div class="switch-form">
+                    Уже есть аккаунт? <a @click="isLogin = true">Войти</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="/static/js/auth.js"></script>
+</body>
+</html>

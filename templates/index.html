@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Главная страница</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="/static/css/index.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Главная страница</h1>
+            <div class="header-actions">
+                <button id="logoutBtn" class="btn btn-logout">
+                    <i class="fas fa-sign-out-alt"></i> Выйти
+                </button>
+            </div>
+        </header>
+
+        {% include 'menu.html' %}
+
+        <div class="welcome-content">
+            <div class="welcome-icon">
+                <i class="fas fa-heart"></i>
+            </div>
+
+            <div class="user-greeting">
+                Добро пожаловать, {{ first_name }} {{ last_name }}!
+            </div>
+
+
+            <h1 class="welcome-title">Ваш личный фотоархив</h1>
+            <p class="welcome-text">
+                Мы рады видеть вас снова! Здесь вы можете управлять своими альбомами,
+                просматривать фотографии и делиться ими с друзьями.
+            </p>
+
+            <div class="features">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-images"></i>
+                    </div>
+                    <h3 class="feature-title">Ваши альбомы</h3>
+                    <p class="feature-text">
+                        Все ваши альбомы в одном месте. Удобный доступ и управление
+                        вашими коллекциями фотографий.
+                    </p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-share-alt"></i>
+                    </div>
+                    <h3 class="feature-title">Общий доступ</h3>
+                    <p class="feature-text">
+                        Делитесь своими альбомами с друзьями и семьёй простой ссылкой.
+                    </p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-lock"></i>
+                    </div>
+                    <h3 class="feature-title">Безопасность</h3>
+                    <p class="feature-text">
+                        Ваши фотографии защищены. Вы контролируете, кто может их видеть.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/static/js/index.js"></script>
+
+</body>
+</html>

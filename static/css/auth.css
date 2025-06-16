@@ -1,0 +1,162 @@
+:root {
+    --primary: #D8A7B1; /* Тёмный розовый */
+    --secondary: #C38D94; /* Ещё темнее розовый */
+    --accent: #B06C77; /* Акцентный тёмно-розовый */
+    --light: #FAE8EB; /* Светлый фон */
+    --dark: #5D535E; /* Тёмный текст */
+    --form-bg: #F8D7DE; /* Фон форм */
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Montserrat', sans-serif;
+}
+
+body {
+    background-color: var(--light);
+    color: var(--dark);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.container {
+    background-color: var(--form-bg);
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    overflow: hidden;
+    width: 100%;
+    max-width: 400px;
+}
+
+.header {
+    background-color: var(--primary);
+    padding: 25px;
+    text-align: center;
+}
+
+.header h1 {
+    color: white;
+    font-weight: 500;
+    font-size: 24px;
+}
+
+.form-container {
+    padding: 30px;
+    background-color: white;
+    border-radius: 0 0 15px 15px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: var(--dark);
+}
+
+.form-control {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid var(--secondary);
+    border-radius: 8px;
+    font-size: 16px;
+    transition: all 0.3s;
+    background-color: rgba(255, 255, 255, 0.8);
+}
+
+.form-control:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(176, 108, 119, 0.2);
+    outline: none;
+}
+
+.btn {
+    display: inline-block;
+    background-color: var(--primary);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 12px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.3s;
+    width: 100%;
+    font-weight: 500;
+}
+
+.btn:hover {
+    background-color: var(--accent);
+    transform: translateY(-2px);
+}
+
+.btn:active {
+    transform: translateY(0);
+}
+
+.switch-form {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 14px;
+}
+
+.switch-form a {
+    color: var(--accent);
+    text-decoration: none;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.switch-form a:hover {
+    text-decoration: underline;
+}
+
+.error-message {
+    color: #c73e30;
+    font-size: 14px;
+    margin-top: 5px;
+}
+
+.has-error .form-control {
+    border-color: #c73e30;
+}
+
+.password-strength {
+    height: 5px;
+    background-color: #eee;
+    border-radius: 5px;
+    margin-top: 5px;
+    overflow: hidden;
+}
+
+.strength-meter {
+    height: 100%;
+    width: 0;
+    transition: width 0.3s, background-color 0.3s;
+}
+
+.terms {
+    font-size: 13px;
+    margin-bottom: 20px;
+    color: var(--dark);
+}
+
+.terms a {
+    color: var(--accent);
+    text-decoration: none;
+}
+
+.terms a:hover {
+    text-decoration: underline;
+}
+
+.terms input[type="checkbox"] {
+    margin-right: 8px;
+}

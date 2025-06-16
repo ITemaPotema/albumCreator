@@ -1,0 +1,448 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap');
+
+:root {
+    --pure-white: #FFFFFF;
+    --black: #000000;
+    --dark-gray: #1A1A1A;
+    --soft-pink: #FFD6E0;
+    --medium-pink: #FF9BB4;
+    --deep-pink: #FF6B8B;
+    --romantic-pink: #FF3D6D;
+    --dark-pink: #D12D5A;
+    --card-bg: #0A0A0A;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--black);
+    color: var(--pure-white);
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    overflow-x: hidden;
+}
+
+/* Минималистичные узоры по углам */
+body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100px;
+    height: 100px;
+    background: linear-gradient(135deg, transparent 65%, var(--dark-pink) 65%);
+    opacity: 0.1;
+    z-index: -1;
+}
+
+body::after {
+    content: "";
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    width: 100px;
+    height: 100px;
+    background: linear-gradient(-45deg, transparent 65%, var(--dark-pink) 65%);
+    opacity: 0.1;
+    z-index: -1;
+}
+
+.album-header {
+    text-align: center;
+    margin: 2rem 0 1rem;
+    width: 100%;
+    padding: 0 1rem;
+    position: relative;
+}
+
+.album-title {
+    font-family: 'Manrope', sans-serif;
+    font-size: 3.2rem;
+    font-weight: 700;
+    color: var(--pure-white);
+    margin-bottom: 0;
+    letter-spacing: -0.5px;
+    line-height: 1.2;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.album-container {
+    width: 90%;
+    max-width: 900px;
+    margin: 0.5rem auto;
+    perspective: 2000px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+}
+
+/* Узоры по углам карточки */
+.page {
+    position: relative;
+    width: 100%;
+    height: 580px;
+    margin: 1rem 0;
+    transform-style: preserve-3d;
+    transition: transform 0.5s ease;
+    box-shadow: 0 12px 30px rgba(255, 61, 109, 0.15);
+    border-radius: 16px;
+    background-color: var(--card-bg);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2.5rem;
+    box-sizing: border-box;
+    border: 1px solid var(--dark-pink);
+    overflow: hidden;
+}
+
+.page::before,
+.page::after {
+    content: "";
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    opacity: 0.1;
+}
+
+.page::before {
+    top: 0;
+    left: 0;
+    border-top: 2px solid var(--romantic-pink);
+    border-left: 2px solid var(--romantic-pink);
+    border-radius: 16px 0 0 0;
+}
+
+.page::after {
+    bottom: 0;
+    right: 0;
+    border-bottom: 2px solid var(--romantic-pink);
+    border-right: 2px solid var(--romantic-pink);
+    border-radius: 0 0 16px 0;
+}
+
+.page-title {
+    font-family: 'Manrope', sans-serif;
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: var(--pure-white);
+    margin-bottom: 1.5rem;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+    padding: 0 1rem;
+    line-height: 1.3;
+}
+
+.page-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    justify-content: space-between;
+}
+
+.page-image-container {
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 380px;
+    margin: 1rem 0;
+    overflow: hidden;
+    position: relative;
+    cursor: pointer;
+    background: transparent;
+}
+
+.page-image {
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    transition: transform 0.3s ease;
+    border-radius: 12px; /* Скруглённые углы */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+}
+
+.page-image:hover {
+    transform: scale(1.02);
+}
+
+.page-footer {
+    margin-top: auto;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.btn-read {
+    margin-top: 1rem;
+    padding: 0.8rem 2.2rem;
+    background-color: var(--romantic-pink);
+    color: var(--pure-white);
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    font-family: 'Manrope', sans-serif;
+    font-weight: 600;
+    font-size: 1.05rem;
+    transition: all 0.3s ease;
+    position: relative;
+    z-index: 1;
+    box-shadow: 0 4px 15px rgba(255, 61, 109, 0.3);
+}
+
+.btn-read:hover {
+    background-color: var(--deep-pink);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(255, 61, 109, 0.4);
+}
+
+.navigation {
+    display: flex;
+    justify-content: space-between;
+    width: 90%;
+    max-width: 900px;
+    margin: 1.5rem auto 2rem;
+}
+
+.nav-btn {
+    padding: 0.8rem 2.2rem;
+    background-color: transparent;
+    color: var(--romantic-pink);
+    border: 2px solid var(--romantic-pink);
+    border-radius: 30px;
+    cursor: pointer;
+    font-family: 'Manrope', sans-serif;
+    font-weight: 600;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+.nav-btn:hover {
+    background-color: var(--romantic-pink);
+    color: var(--pure-white);
+}
+
+.nav-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    background-color: transparent;
+    color: var(--medium-pink);
+    border-color: var(--medium-pink);
+}
+
+/* Modal styles */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.9);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+.modal-overlay[data-show] {
+    opacity: 1;
+    pointer-events: all;
+}
+
+.modal-content {
+    background-color: var(--card-bg);
+    padding: 2.5rem;
+    border-radius: 16px;
+    max-width: 500px;
+    width: 90%;
+    max-height: 85vh;
+    overflow-y: auto;
+    position: relative;
+    border: 1px solid var(--dark-pink);
+}
+
+.modal-close {
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+    background: none;
+    border: none;
+    font-size: 1.8rem;
+    cursor: pointer;
+    color: var(--romantic-pink);
+    transition: transform 0.2s ease;
+}
+
+.modal-close:hover {
+    transform: scale(1.2);
+}
+
+.modal-text {
+    line-height: 1.8;
+    margin-top: 1.5rem;
+    color: var(--pure-white);
+    white-space: pre-line;
+    font-size: 1.15rem;
+    padding-right: 0.5rem;
+    text-align: center;
+}
+
+/* Image Zoom Modal */
+.image-modal {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+.zoomed-image {
+    max-width: 90%;
+    max-height: 90%;
+    object-fit: contain;
+    border-radius: 12px;
+}
+
+.image-modal-close {
+    position: absolute;
+    top: 2rem;
+    right: 2rem;
+    background: rgba(10, 10, 10, 0.8);
+    border: 1px solid var(--romantic-pink);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    font-size: 1.5rem;
+    color: var(--romantic-pink);
+    transition: all 0.2s ease;
+}
+
+.image-modal-close:hover {
+    background: var(--card-bg);
+    transform: scale(1.1);
+}
+
+.page-indicator {
+    margin-top: 1.5rem;
+    color: var(--romantic-pink);
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+/* Анимация перелистывания */
+.page.flip-out {
+    animation: flipOut 0.5s forwards;
+}
+
+.page.flip-in {
+    animation: flipIn 0.5s forwards;
+}
+
+@keyframes flipOut {
+    to {
+        transform: rotateY(90deg);
+        opacity: 0;
+    }
+}
+
+@keyframes flipIn {
+    from {
+        transform: rotateY(-90deg);
+        opacity: 0;
+    }
+    to {
+        transform: rotateY(0);
+        opacity: 1;
+    }
+}
+
+.no-image-placeholder {
+    width: 300px;
+    height: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-style: italic;
+    color: var(--medium-pink);
+    font-size: 1.1rem;
+    position: relative;
+    border-radius: 12px;
+    background-color: rgba(255, 61, 109, 0.05);
+}
+
+/* Progress indicator */
+.progress-container {
+    width: 90%;
+    max-width: 900px;
+    height: 4px;
+    background-color: rgba(255, 61, 109, 0.2);
+    border-radius: 2px;
+    margin: 0.5rem auto 1rem;
+    overflow: hidden;
+}
+
+.progress-bar {
+    height: 100%;
+    background-color: var(--romantic-pink);
+    transition: width 0.3s ease;
+}
+
+@media (max-width: 768px) {
+    .album-container {
+        width: 95%;
+    }
+
+    .page {
+        height: 500px;
+        padding: 1.8rem;
+    }
+
+    .album-title {
+        font-size: 2.5rem;
+    }
+
+    .page-title {
+        font-size: 1.8rem;
+    }
+
+    .page-image-container {
+        height: 300px;
+    }
+
+    .navigation {
+        width: 95%;
+    }
+
+    .modal-content {
+        padding: 1.8rem;
+        max-width: 90%;
+    }
+
+    body::before,
+    body::after {
+        width: 60px;
+        height: 60px;
+    }
+}
