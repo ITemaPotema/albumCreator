@@ -103,6 +103,7 @@ function albumApp() {
                 const reader = new FileReader();
                 reader.onload = (e) => {
                     this.newSlide.imagePreview = e.target.result;
+                    this.newSlide.image_path = '';
                 };
                 reader.readAsDataURL(file);
             } else {
